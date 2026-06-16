@@ -102,7 +102,7 @@ st.markdown("""
 <div class="hero">
     <div class="hero-icon">🔐</div>
     <div class="hero-title">Escape</div>
-    <div class="hero-subtitle">Sistema de acesso protegido por senha</div>
+    <div class="hero-subtitle">Sistema de acesso privado</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -131,15 +131,15 @@ if st.button("Acessar conteúdo"):
         st.success("Acesso liberado com sucesso!")
 
         pasta = Path(__file__).parent
-        caminho_imagem = pasta / "imagem.jpg"
+        caminho_conteudo = pasta / "conteudo.jpg"
 
-        if caminho_imagem.exists():
+        if caminho_conteudo.exists():
             st.image(
-                str(caminho_imagem),
+                str(caminho_conteudo),
                 use_container_width=True
             )
         else:
-            st.error("Erro: o arquivo imagem.jpg não foi encontrado.")
+            st.error("Erro: o conteúdo protegido não foi encontrado.")
 
     else:
         st.error("Senha incorreta. Tente novamente.")
