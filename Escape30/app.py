@@ -126,7 +126,7 @@ senha = st.text_input(
     placeholder="Digite a senha de acesso"
 )
 
-if st.button("Desbloquear imagem"):
+if st.button("Desbloquear"):
     if senha == senha_correta:
         st.success("Acesso liberado com sucesso!")
 
