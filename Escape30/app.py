@@ -131,7 +131,7 @@ if st.button("Acessar conteúdo"):
         st.success("Acesso liberado com sucesso!")
 
         pasta = Path(__file__).parent
-        caminho_conteudo = pasta / "conteudo.jpg"
+        caminho_conteudo = pasta / "imagem.jpg"
 
         if caminho_conteudo.exists():
             st.image(
