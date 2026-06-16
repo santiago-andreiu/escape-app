@@ -1,13 +1,11 @@
 import streamlit as st
 from pathlib import Path
 
-
 st.set_page_config(
     page_title="Escape",
     page_icon="🔐",
     layout="centered"
 )
-
 
 st.markdown("""
 <style>
@@ -49,25 +47,18 @@ st.markdown("""
         border-radius: 18px;
         padding: 22px;
         margin-bottom: 25px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
     }
 
     .info-title {
         font-size: 20px;
         font-weight: 700;
         margin-bottom: 8px;
-        color: #f8fafc;
     }
 
     .info-text {
         font-size: 15px;
         color: #cbd5e1;
         line-height: 1.6;
-    }
-
-    div.stTextInput > div > div > input {
-        border-radius: 12px;
-        height: 48px;
     }
 
     div.stButton > button {
@@ -79,13 +70,6 @@ st.markdown("""
         color: white;
         border: none;
         background: linear-gradient(90deg, #2563eb, #7c3aed);
-        transition: 0.2s;
-    }
-
-    div.stButton > button:hover {
-        transform: scale(1.01);
-        color: white;
-        background: linear-gradient(90deg, #1d4ed8, #6d28d9);
     }
 
     .footer {
@@ -97,15 +81,13 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
 st.markdown("""
 <div class="hero">
     <div class="hero-icon">🔐</div>
     <div class="hero-title">Escape</div>
-    <div class="hero-subtitle">Sistema de acesso protegido por senha</div>
+    <div class="hero-subtitle">Sistema de acesso privado</div>
 </div>
 """, unsafe_allow_html=True)
-
 
 st.markdown("""
 <div class="info-card">
@@ -117,8 +99,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
-senha_correta = st.secrets.get("SENHA_APP", "478593")
+senha_correta = "478593"
 
 senha = st.text_input(
     "Senha:",
@@ -131,19 +112,19 @@ if st.button("Acessar conteúdo"):
         st.success("Acesso liberado com sucesso!")
 
         pasta = Path(__file__).parent
-        caminho_imagem = pasta / "imagem.jpg"
 
-        if caminho_imagem.exists():
-            st.image(
-                str(caminho_imagem),
-                use_container_width=True
-            )
+        caminho1 = pasta / "conteudo.jpg"
+        caminho2 = pasta / "imagem.jpg"
+
+        if caminho1.exists():
+            st.image(str(caminho1), use_container_width=True)
+        elif caminho2.exists():
+            st.image(str(caminho2), use_container_width=True)
         else:
-            st.error("Erro: o arquivo imagem.jpg não foi encontrado.")
+            st.error("Erro: o conteúdo protegido não foi encontrado.")
 
     else:
         st.error("Senha incorreta. Tente novamente.")
-
 
 st.markdown("""
 <div class="footer">
