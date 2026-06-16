@@ -111,8 +111,8 @@ st.markdown("""
 <div class="info-card">
     <div class="info-title">Área protegida</div>
     <div class="info-text">
-        Digite a senha correta para liberar o acesso à imagem.
-        Caso a senha esteja incorreta, o conteúdo continuará bloqueado.
+        Digite a senha correta para liberar o acesso ao conteúdo protegido.
+        Caso a senha esteja incorreta, o acesso continuará bloqueado.
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -126,7 +126,7 @@ senha = st.text_input(
     placeholder="Digite a senha de acesso"
 )
 
-if st.button("Desbloquear"):
+if st.button("Acessar conteúdo"):
     if senha == senha_correta:
         st.success("Acesso liberado com sucesso!")
 
@@ -136,7 +136,6 @@ if st.button("Desbloquear"):
         if caminho_imagem.exists():
             st.image(
                 str(caminho_imagem),
-                caption="Imagem liberada",
                 use_container_width=True
             )
         else:
