@@ -15,90 +15,121 @@ st.set_page_config(
 st.markdown("""
 <style>
     .stApp {
-        background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+        background: radial-gradient(circle at top, #172554 0%, #020617 45%, #020617 100%);
         color: white;
     }
 
-    .main-card {
-        background: rgba(255, 255, 255, 0.08);
-        padding: 35px;
-        border-radius: 22px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        box-shadow: 0 0 35px rgba(0, 0, 0, 0.35);
-        margin-top: 40px;
+    section.main > div {
+        max-width: 760px;
+        padding-top: 70px;
     }
 
-    .title {
-        font-size: 48px;
-        font-weight: 800;
-        margin-bottom: 5px;
+    .hero {
+        text-align: center;
+        margin-bottom: 35px;
     }
 
-    .subtitle {
+    .hero-icon {
+        font-size: 70px;
+        margin-bottom: 10px;
+    }
+
+    .hero-title {
+        font-size: 54px;
+        font-weight: 900;
+        color: white;
+        margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
         font-size: 18px;
         color: #cbd5e1;
-        margin-bottom: 25px;
     }
 
-    .info-box {
-        background: rgba(59, 130, 246, 0.12);
-        border-left: 4px solid #3b82f6;
-        padding: 14px;
-        border-radius: 10px;
+    .info-card {
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 18px;
+        padding: 22px;
         margin-bottom: 25px;
-        color: #dbeafe;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    .info-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #f8fafc;
+    }
+
+    .info-text {
+        font-size: 15px;
+        color: #cbd5e1;
+        line-height: 1.6;
+    }
+
+    div.stTextInput > div > div > input {
+        border-radius: 12px;
+        height: 48px;
+    }
+
+    div.stButton > button {
+        width: 100%;
+        height: 50px;
+        border-radius: 14px;
+        font-size: 17px;
+        font-weight: 700;
+        color: white;
+        border: none;
+        background: linear-gradient(90deg, #2563eb, #7c3aed);
+        transition: 0.2s;
+    }
+
+    div.stButton > button:hover {
+        transform: scale(1.01);
+        color: white;
+        background: linear-gradient(90deg, #1d4ed8, #6d28d9);
     }
 
     .footer {
         text-align: center;
         color: #64748b;
         font-size: 13px;
-        margin-top: 30px;
-    }
-
-    div.stButton > button {
-        width: 100%;
-        height: 48px;
-        border-radius: 12px;
-        font-size: 17px;
-        font-weight: 600;
-        background: linear-gradient(90deg, #2563eb, #7c3aed);
-        color: white;
-        border: none;
-    }
-
-    div.stButton > button:hover {
-        background: linear-gradient(90deg, #1d4ed8, #6d28d9);
-        color: white;
-        border: none;
+        margin-top: 35px;
     }
 </style>
 """, unsafe_allow_html=True)
 
 
-st.markdown('<div class="main-card">', unsafe_allow_html=True)
-
-st.markdown('<div class="title">🔐 Escape</div>', unsafe_allow_html=True)
-st.markdown(
-    '<div class="subtitle">Sistema de desbloqueio de imagem criptografada.</div>',
-    unsafe_allow_html=True
-)
-
 st.markdown("""
-<div class="info-box">
-Digite a senha correta para acessar o conteúdo protegido.
+<div class="hero">
+    <div class="hero-icon">🔐</div>
+    <div class="hero-title">Escape</div>
+    <div class="hero-subtitle">Sistema de desbloqueio de imagem criptografada</div>
 </div>
 """, unsafe_allow_html=True)
 
 
-# Melhor forma: senha escondida nos Secrets do Streamlit
-senha_correta = st.secrets.get("SENHA_APP", "1234")
+st.markdown("""
+<div class="info-card">
+    <div class="info-title">Área protegida</div>
+    <div class="info-text">
+        Digite a senha correta para liberar o acesso à imagem criptografada.
+        Caso a senha esteja incorreta, o conteúdo continuará bloqueado.
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
-senha = st.text_input("Digite a senha:", type="password", placeholder="Insira a senha aqui")
 
-botao = st.button("Desbloquear imagem")
+senha_correta = st.secrets.get("SENHA_APP", "478593")
 
-if botao:
+senha = st.text_input(
+    "Senha:",
+    type="password",
+    placeholder="Digite a senha de acesso"
+)
+
+if st.button("Desbloquear imagem"):
     if senha == senha_correta:
         st.success("Acesso liberado com sucesso!")
 
@@ -123,7 +154,8 @@ if botao:
             )
 
         except FileNotFoundError:
-            st.error("Erro: chave.key ou foto.enc não foram encontrados.")
+            st.error("Erro: os arquivos chave.key ou foto.enc não foram encontrados.")
+
         except Exception as erro:
             st.error("Erro ao desbloquear a imagem.")
             st.write(erro)
@@ -131,9 +163,9 @@ if botao:
     else:
         st.error("Senha incorreta. Tente novamente.")
 
-st.markdown('</div>', unsafe_allow_html=True)
 
-st.markdown(
-    '<div class="footer">Projeto desenvolvido em Python com Streamlit</div>',
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div class="footer">
+    Projeto desenvolvido em Python com Streamlit
+</div>
+""", unsafe_allow_html=True)
