@@ -10,7 +10,7 @@ st.set_page_config(page_title="Escape", page_icon="🔐")
 st.title("🔐 Escape")
 st.write("Digite a senha para desbloquear a imagem.")
 
-senha_correta = "1234"
+senha_correta = "478593"
 
 senha = st.text_input("Senha:", type="password")
 
