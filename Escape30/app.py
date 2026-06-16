@@ -99,7 +99,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-senha_correta = "478593"
+senha_correta = st.secrets.get("SENHA_APP", "478593")
 
 senha = st.text_input(
     "Senha:",
