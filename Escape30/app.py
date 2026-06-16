@@ -1,7 +1,4 @@
 import streamlit as st
-from cryptography.fernet import Fernet
-from PIL import Image
-from io import BytesIO
 from pathlib import Path
 
 
@@ -105,7 +102,7 @@ st.markdown("""
 <div class="hero">
     <div class="hero-icon">🔐</div>
     <div class="hero-title">Escape</div>
-    <div class="hero-subtitle">Sistema de desbloqueio de imagem criptografada</div>
+    <div class="hero-subtitle">Sistema de acesso protegido por senha</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -114,7 +111,7 @@ st.markdown("""
 <div class="info-card">
     <div class="info-title">Área protegida</div>
     <div class="info-text">
-        Digite a senha correta para liberar o acesso à imagem criptografada.
+        Digite a senha correta para liberar o acesso à imagem.
         Caso a senha esteja incorreta, o conteúdo continuará bloqueado.
     </div>
 </div>
@@ -133,32 +130,17 @@ if st.button("Desbloquear imagem"):
     if senha == senha_correta:
         st.success("Acesso liberado com sucesso!")
 
-        try:
-            pasta = Path(__file__).parent
+        pasta = Path(__file__).parent
+        caminho_imagem = pasta / "imagem.jpg"
 
-            caminho_chave = pasta / "chave.key"
-            caminho_foto = pasta / "foto.enc"
-
-            chave = caminho_chave.read_bytes()
-            dados_criptografados = caminho_foto.read_bytes()
-
-            fernet = Fernet(chave)
-            dados_descriptografados = fernet.decrypt(dados_criptografados)
-
-            imagem = Image.open(BytesIO(dados_descriptografados))
-
+        if caminho_imagem.exists():
             st.image(
-                imagem,
-                caption="Imagem desbloqueada",
+                str(caminho_imagem),
+                caption="Imagem liberada",
                 use_container_width=True
             )
-
-        except FileNotFoundError:
-            st.error("Erro: os arquivos chave.key ou foto.enc não foram encontrados.")
-
-        except Exception as erro:
-            st.error("Erro ao desbloquear a imagem.")
-            st.write(erro)
+        else:
+            st.error("Erro: o arquivo imagem.jpg não foi encontrado.")
 
     else:
         st.error("Senha incorreta. Tente novamente.")
